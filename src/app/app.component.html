@@ -16,30 +16,50 @@
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
+
+            <!--Modal header-->
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
+                <h4 class="modal-title">Adding layer to the map</h4>
             </div>
             <div class="modal-body">
                 <ul class="nav nav-tabs">
-                    <li><a href="#">General</a></li>
-                    <li><a href="#">Setting</a></li>
+                    <li><a href="#general" data-toggle="tab">General</a></li>
+                    <li><a href="#setting" data-toggle="tab">Setting</a></li>
                 </ul>
-                <div class="row">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Product name" [(ngModel)]="wmsURL">
-                        <span class="input-group-btn">
-                            <button class="btn btn-secondary" type="button" (click)="loadWMSLayer()">Add to the map</button>
-                        </span>
-                    </div>
-                </div>                
+             
             </div>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="general">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Enter the URL here" [(ngModel)]="wmsURL">
+                        <span class="input-group-btn"><button class="btn btn-secondary" type="button" (click)="loadWMSLayer()">Add to the map</button></span>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="setting">
+                    <div class="form-group">
+                        <label>Search Condition:</label>
+                        <input type="text" class="form-control" placeholder="Search Condition (default 1=1)" [(ngModel)]="whereCondition">
+                        <label>Coordinate System ID (SRID):</label>
+                        <input type="text" class="form-control" placeholder="Coordinate System ID (default 4326 - WGS84)" [(ngModel)]="srid">
+                        <label>Return Distinct Values:</label>
+                        <input type="text" class="form-control" placeholder="Return Distinct Values (default False)" [(ngModel)]="returnDistinctValues">                        
+                    </div>                    
+                </div>
+            </div>         
+
+            <!--Modal Tab Footer-->
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
+
+
+<!--Symbology Tab-->
 
 <div id="symbology" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -57,3 +77,5 @@
         </div>
     </div>
 </div>
+
+
