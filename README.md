@@ -6,9 +6,9 @@ This project is implemented based on `Angular2 Cli`, `Leafletjs` and `Bootstrap`
 
 # Installation
 In order to install this project, perform the following steps:
-    1. Download the project to your local directory.
-    2. Pointing at your local directory, enter `npm install` in your console and download the required `npm_modules`.
-    3. Use `ng serve` at your local directory in your console to start up the project in your default browser `http://localhost:4200`.
+1. Download the project to your local directory.
+2. Pointing at your local directory, enter `npm install` in your console and download the required `npm_modules`.
+3. Use `ng serve` at your local directory in your console to start up the project in your default browser `http://localhost:4200`.
 
 ## Build
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
