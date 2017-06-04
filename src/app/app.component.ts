@@ -24,61 +24,62 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
 
-        // Defining the initial map
+        // Defining the map container properties
         this.myMap = L.map('myMap', {
-            center: L.latLng(30, -80), zoom: 3
+            center: L.latLng(0, 0),
+            zoom: 3
         });
 
         // Defining the basemap
         var basemapLayer1 = L.tileLayer.wms('http://tile.stamen.com/toner-background/{z}/{x}/{y}.png', {
-            layers: 'Open Street Map',
+            layers: 'Stamen Country Borders',
             maxZoom: 18,
             opacity: 0.8,
-            attribution: 'Open Street Map'
+            attribution: "<a href='https://stamen.com/'>© Stamen Design LLC</a>"
         });
 
-        // Defining wms layers
-        var wmsLayer1 = L.tileLayer.wms('http://ows.terrestris.de/osm/service', {
+        var basemapLayer2 = L.tileLayer.wms('http://ows.terrestris.de/osm/service', {
             layers: 'TOPO-WMS',
             opacity: 0.5,
-            attribution: 'TOPO-WMS'
+            attribution: "<a href='https://www.terrestris.de/'>Copyright © 2017 terrestris GmbH & Co</a>"
         });
         
-        var wmsLayer2 = L.tileLayer.wms('http://ows.terrestris.de/osm/service', {
+        var basemapLayer3 = L.tileLayer.wms('http://ows.terrestris.de/osm/service', {
             layers: 'TOPO-OSM-WMS',
             opacity: 0.5,
-            attribution: 'TOPO-OSM-WMS'
+            attribution: "<a href='https://www.terrestris.de/'>Copyright © 2017 terrestris GmbH & Co</a>"
         });
 
-        var wmsLayer3 = L.tileLayer.wms('http://ows.terrestris.de/osm/service', {
+        var basemapLayer4 = L.tileLayer.wms('http://ows.terrestris.de/osm/service', {
             layers: 'OSM-WMS',
             opacity: 0.5,
-            attribution: 'OSM-WMS'
+            attribution: "<a href='https://www.terrestris.de/'>Copyright © 2017 terrestris GmbH & Co</a>"
         });
 
-        var wmsLayer4 = L.tileLayer.wms('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        var basemapLayer5 = L.tileLayer.wms('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             layers: 'OSM - Basemap',
             opacity: 0.5,
-            attribution: 'OSM - Basemap'
+            attribution: "<a href='http://www.openstreetmap.org/'>OpenStreetMap®</a>"
         });
 
-        var wmsLayer5 = L.tileLayer.wms('http://10.16.2.55:8080/geoserver/wms', {
+        var wmsLayer1 = L.tileLayer.wms('http://10.16.2.55:8080/geoserver/wms', {
             layers: 'Boundary',
             opacity: 0.5,
-            attribution: 'OSM-WMS'
+            attribution: 'Sample Layer from GeoServer'
         });        
         
         // Define a layer group for the basemap
         var basemapLayers = {
-            'Basemap': basemapLayer1
+            'World Countries Border': basemapLayer1,
+            'Topographic Map': basemapLayer2,
+            'OSM Topographic Map': basemapLayer3,
+            'National Geographic Map': basemapLayer4,
+            'Open Street Map': basemapLayer5
         }
 
         // Define a layer group for the wms layers
         var wmsLayers = { 
-            'TOPO-WMS': wmsLayer1.addTo(this.myMap),
-            'TOPO-OSM-WMS': wmsLayer2.addTo(this.myMap),
-            'OSM-WMS': wmsLayer3.addTo(this.myMap),
-            'Basemap': wmsLayer4.addTo(this.myMap)
+            'Sample Internal WMS Layer': wmsLayer1.addTo(this.myMap)
         }; 
         
         // Add the layers to the map
