@@ -20,16 +20,7 @@ export class AppComponent implements OnInit {
     srid: string = '4326';
     returnDistinctValues: string = 'false';
 
-
-    onMapReady(map: L.Map) {
-        
-    }
-
-    constructor(private http: Http){
-
-    }
-
-
+    constructor(private http: Http){}
 
     ngOnInit() {
 
@@ -90,23 +81,14 @@ export class AppComponent implements OnInit {
             'Basemap': wmsLayer4.addTo(this.myMap)
         }; 
         
-      
-    
-
-
         // Add the layers to the map
-        L.control.layers(basemapLayers, wmsLayers).addTo(this.myMap);
+        L.control.layers(basemapLayers, wmsLayers).addTo(this.myMap);  
     }
 
 
     loadWMSLayer(){
-        //Read json file
-        var obj;
-        
-        //this.getJSON().subscribe(data => obj=data);
-
         var geojsonMarkerOptions = {
-            radius: 8,
+            radius: 5,
             fillColor: "#ff7800",
             color: "#000",
             weight: 1,
@@ -117,8 +99,6 @@ export class AppComponent implements OnInit {
         var conditionURL = '/query?where=' + this.whereCondition + '&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=' + this.srid + '&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=' + this.returnDistinctValues + '&orderByFields=&groupByFieldsForStatistics=&outStatistics=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&quantizationParameters=&sqlFormat=none&f=pgeojson&token=';
         this.http.get( this.wmsURL + conditionURL)
         .map((response: Response) => {
-            console.log(response.json());
-            
             var geoJsonLayer1 = L.geoJSON(response.json(), {
                 pointToLayer: function (feature, latlng) {
                     return L.circleMarker(latlng, geojsonMarkerOptions);
@@ -133,55 +113,24 @@ export class AppComponent implements OnInit {
                                                 weight: 1,
                                                 opacity: 1,
                                                 fillOpacity: 0.8
-                                            };
-                        case 'test2': return {
-                                                radius: 10,
-                                                fillColor: "#41f465",
-                                                color: "#000",
-                                                weight: 1,
-                                                opacity: 1,
-                                                fillOpacity: 0.8
-                                            };
-                        case 'test3': return {
-                                                radius: 20,
-                                                fillColor: "#f47341",
-                                                color: "#000",
-                                                weight: 1,
-                                                opacity: 1,
-                                                fillOpacity: 0.8
-                                            };                               
+                                            };                            
                     }
-                }            
-            }).addTo(this.myMap);         
-            
-        }).subscribe();            
+                }
+            }).addTo(this.myMap);
+        }).subscribe();
+
+        this.myMap.eachLayer(function (layer) {
+            if (layer.feature){
+                console.log(layer.feature.id);
+            }
+        });
     }
 
     onEachFeature(feature, layer) {
-    // does this feature have a property named popupContent?
-    if (feature.properties) {
+        if (feature.properties) {
         layer.bindPopup(
             feature.properties.name
         )}
-    }
-
-    private extractData(res: Response) {
-        let body = res.json();
-        return body.data || { };
-    }
-
-    private handleError (error: Response | any) {
-        // In a real world app, you might use a remote logging infrastructure
-        let errMsg: string;
-        if (error instanceof Response) {
-            const body = error.json() || '';
-            const err = body.error || JSON.stringify(body);
-            errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-        } else {
-            errMsg = error.message ? error.message : error.toString();
-        }
-        console.error(errMsg);
-        return Observable.throw(errMsg);
     }
 }
 
