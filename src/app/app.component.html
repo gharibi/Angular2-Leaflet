@@ -1,3 +1,59 @@
-<h1>
-  {{title}}
-</h1>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Leafletjs WebMap Viewer</a>
+    </div>
+    <button type="button" class="btn btn-danger navbar-btn" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span></button>
+    <button type="button" class="btn btn-danger navbar-btn" data-toggle="modal" data-target="#symbology"><span class="glyphicon glyphicon-text-color"></span></button>
+  </div>
+</nav>
+<div class="panel panel-default">
+    <div id="myMap" style="height:1000px;"></div>
+</div>
+
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs">
+                    <li><a href="#">General</a></li>
+                    <li><a href="#">Setting</a></li>
+                </ul>
+                <div class="row">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Product name" [(ngModel)]="wmsURL">
+                        <span class="input-group-btn">
+                            <button class="btn btn-secondary" type="button" (click)="loadWMSLayer()">Add to the map</button>
+                        </span>
+                    </div>
+                </div>                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="symbology" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Define Symbology</h4>
+            </div>
+            <div class="modal-body">
+              
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
