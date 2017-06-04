@@ -1,3 +1,6 @@
+# Introduction
+This project is a dynamic, responsive WebGIS application which could visualize WMS services on the map.
+
 # Leaflet
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.6.
