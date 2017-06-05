@@ -71,53 +71,54 @@ var AppComponent = (function () {
         this.returnDistinctValues = 'false';
     }
     AppComponent.prototype.ngOnInit = function () {
-        // Defining the initial map
+        // Defining the map container properties
         this.myMap = __WEBPACK_IMPORTED_MODULE_1_leaflet__["map"]('myMap', {
-            center: __WEBPACK_IMPORTED_MODULE_1_leaflet__["latLng"](30, -80), zoom: 3
+            center: __WEBPACK_IMPORTED_MODULE_1_leaflet__["latLng"](0, 0),
+            zoom: 3
         });
         // Defining the basemap
         var basemapLayer1 = __WEBPACK_IMPORTED_MODULE_1_leaflet__["tileLayer"].wms('http://tile.stamen.com/toner-background/{z}/{x}/{y}.png', {
-            layers: 'Open Street Map',
+            layers: 'Stamen Country Borders',
             maxZoom: 18,
             opacity: 0.8,
-            attribution: 'Open Street Map'
+            attribution: "<a href='https://stamen.com/'>© Stamen Design LLC</a>"
         });
-        // Defining wms layers
-        var wmsLayer1 = __WEBPACK_IMPORTED_MODULE_1_leaflet__["tileLayer"].wms('http://ows.terrestris.de/osm/service', {
+        var basemapLayer2 = __WEBPACK_IMPORTED_MODULE_1_leaflet__["tileLayer"].wms('http://ows.terrestris.de/osm/service', {
             layers: 'TOPO-WMS',
             opacity: 0.5,
-            attribution: 'TOPO-WMS'
+            attribution: "<a href='https://www.terrestris.de/'>Copyright © 2017 terrestris GmbH & Co</a>"
         });
-        var wmsLayer2 = __WEBPACK_IMPORTED_MODULE_1_leaflet__["tileLayer"].wms('http://ows.terrestris.de/osm/service', {
+        var basemapLayer3 = __WEBPACK_IMPORTED_MODULE_1_leaflet__["tileLayer"].wms('http://ows.terrestris.de/osm/service', {
             layers: 'TOPO-OSM-WMS',
             opacity: 0.5,
-            attribution: 'TOPO-OSM-WMS'
+            attribution: "<a href='https://www.terrestris.de/'>Copyright © 2017 terrestris GmbH & Co</a>"
         });
-        var wmsLayer3 = __WEBPACK_IMPORTED_MODULE_1_leaflet__["tileLayer"].wms('http://ows.terrestris.de/osm/service', {
+        var basemapLayer4 = __WEBPACK_IMPORTED_MODULE_1_leaflet__["tileLayer"].wms('http://ows.terrestris.de/osm/service', {
             layers: 'OSM-WMS',
             opacity: 0.5,
-            attribution: 'OSM-WMS'
+            attribution: "<a href='https://www.terrestris.de/'>Copyright © 2017 terrestris GmbH & Co</a>"
         });
-        var wmsLayer4 = __WEBPACK_IMPORTED_MODULE_1_leaflet__["tileLayer"].wms('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        var basemapLayer5 = __WEBPACK_IMPORTED_MODULE_1_leaflet__["tileLayer"].wms('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             layers: 'OSM - Basemap',
             opacity: 0.5,
-            attribution: 'OSM - Basemap'
+            attribution: "<a href='http://www.openstreetmap.org/'>OpenStreetMap®</a>"
         });
-        var wmsLayer5 = __WEBPACK_IMPORTED_MODULE_1_leaflet__["tileLayer"].wms('http://10.16.2.55:8080/geoserver/wms', {
+        var wmsLayer1 = __WEBPACK_IMPORTED_MODULE_1_leaflet__["tileLayer"].wms('http://10.16.2.55:8080/geoserver/wms', {
             layers: 'Boundary',
             opacity: 0.5,
-            attribution: 'OSM-WMS'
+            attribution: 'Sample Layer from GeoServer'
         });
         // Define a layer group for the basemap
         var basemapLayers = {
-            'Basemap': basemapLayer1
+            'World Countries Border': basemapLayer1,
+            'Topographic Map': basemapLayer2,
+            'OSM Topographic Map': basemapLayer3,
+            'National Geographic Map': basemapLayer4,
+            'Open Street Map': basemapLayer5
         };
         // Define a layer group for the wms layers
         var wmsLayers = {
-            'TOPO-WMS': wmsLayer1.addTo(this.myMap),
-            'TOPO-OSM-WMS': wmsLayer2.addTo(this.myMap),
-            'OSM-WMS': wmsLayer3.addTo(this.myMap),
-            'Basemap': wmsLayer4.addTo(this.myMap)
+            'Sample Internal WMS Layer': wmsLayer1.addTo(this.myMap)
         };
         // Add the layers to the map
         __WEBPACK_IMPORTED_MODULE_1_leaflet__["control"].layers(basemapLayers, wmsLayers).addTo(this.myMap);
@@ -286,7 +287,7 @@ module.exports = module.exports.toString();
 /***/ 310:
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-inverse\">\r\n  <div class=\"container-fluid\">\r\n    <div class=\"navbar-header\">\r\n      <a class=\"navbar-brand\" href=\"#\">Leafletjs WebMap Viewer</a>\r\n    </div>\r\n    <button type=\"button\" class=\"btn btn-danger navbar-btn\" data-toggle=\"modal\" data-target=\"#myModal\"><span class=\"glyphicon glyphicon-plus\"></span></button>\r\n    <button type=\"button\" class=\"btn btn-danger navbar-btn\" data-toggle=\"modal\" data-target=\"#symbology\"><span class=\"glyphicon glyphicon-text-color\"></span></button>\r\n  </div>\r\n  <div id=\"myMap\" style=\"height:800px; width:100%\"></div>\r\n</nav>\r\n\r\n<div id=\"myModal\" class=\"modal fade\" role=\"dialog\">\r\n    <div class=\"modal-dialog\">\r\n        <!-- Modal content-->\r\n        <div class=\"modal-content\">\r\n\r\n            <!--Modal header-->\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n                <h4 class=\"modal-title\">Adding layer to the map</h4>\r\n            </div>\r\n            <div class=\"modal-body\">\r\n                <ul class=\"nav nav-tabs\">\r\n                    <li><a href=\"#general\" data-toggle=\"tab\">General</a></li>\r\n                    <li><a href=\"#setting\" data-toggle=\"tab\">Setting</a></li>\r\n                </ul>\r\n             \r\n            </div>\r\n\r\n            <!-- Tab panes -->\r\n            <div class=\"tab-content\">\r\n                <div role=\"tabpanel\" class=\"tab-pane active\" id=\"general\">\r\n                    <div class=\"input-group\">\r\n                        <input type=\"text\" class=\"form-control\" placeholder=\"Enter the URL here\" [(ngModel)]=\"wmsURL\">\r\n                        <span class=\"input-group-btn\"><button class=\"btn btn-secondary\" type=\"button\" (click)=\"loadWMSLayer()\">Add to the map</button></span>\r\n                    </div>\r\n                </div>\r\n                <div role=\"tabpanel\" class=\"tab-pane\" id=\"setting\">\r\n                    <div class=\"form-group\">\r\n                        <label>Search Condition:</label>\r\n                        <input type=\"text\" class=\"form-control\" placeholder=\"Search Condition (default 1=1)\" [(ngModel)]=\"whereCondition\">\r\n                        <label>Coordinate System ID (SRID):</label>\r\n                        <input type=\"text\" class=\"form-control\" placeholder=\"Coordinate System ID (default 4326 - WGS84)\" [(ngModel)]=\"srid\">\r\n                        <label>Return Distinct Values:</label>\r\n                        <input type=\"text\" class=\"form-control\" placeholder=\"Return Distinct Values (default False)\" [(ngModel)]=\"returnDistinctValues\">                        \r\n                    </div>                    \r\n                </div>\r\n            </div>         \r\n\r\n            <!--Modal Tab Footer-->\r\n            <div class=\"modal-footer\">\r\n                <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<!--Symbology Tab-->\r\n<div id=\"symbology\" class=\"modal fade\" role=\"dialog\">\r\n    <div class=\"modal-dialog\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n                <h4 class=\"modal-title\">Define Symbology</h4>\r\n            </div>\r\n            <div class=\"modal-body\">\r\n              \r\n            </div>\r\n            <div class=\"modal-footer\">\r\n                <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n\r\n"
+module.exports = "<nav class=\"navbar navbar-inverse\">\n  <div class=\"container-fluid\">\n    <div class=\"navbar-header\">\n      <a class=\"navbar-brand\" href=\"#\">Leafletjs WebMap Viewer</a>\n    </div>\n    <button type=\"button\" class=\"btn btn-danger navbar-btn\" data-toggle=\"modal\" data-target=\"#myModal\"><span class=\"glyphicon glyphicon-plus\"></span></button>\n    <button type=\"button\" class=\"btn btn-danger navbar-btn\" data-toggle=\"modal\" data-target=\"#symbology\"><span class=\"glyphicon glyphicon-text-color\"></span></button>\n  </div>\n  <div id=\"myMap\" style=\"height:800px; width:100%\"></div>\n</nav>\n\n<div id=\"myModal\" class=\"modal fade\" role=\"dialog\">\n    <div class=\"modal-dialog\">\n        <!-- Modal content-->\n        <div class=\"modal-content\">\n\n            <!--Modal header-->\n            <div class=\"modal-header\">\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n                <h4 class=\"modal-title\">Adding layer to the map</h4>\n            </div>\n            <div class=\"modal-body\">\n                <ul class=\"nav nav-tabs\">\n                    <li><a href=\"#general\" data-toggle=\"tab\">General</a></li>\n                    <li><a href=\"#setting\" data-toggle=\"tab\">Setting</a></li>\n                </ul>\n             \n            </div>\n\n            <!-- Tab panes -->\n            <div class=\"tab-content\">\n                <div role=\"tabpanel\" class=\"tab-pane active\" id=\"general\">\n                    <div class=\"input-group\">\n                        <input type=\"text\" class=\"form-control\" placeholder=\"Enter the URL here\" [(ngModel)]=\"wmsURL\">\n                        <span class=\"input-group-btn\"><button class=\"btn btn-secondary\" type=\"button\" (click)=\"loadWMSLayer()\">Add to the map</button></span>\n                    </div>\n                </div>\n                <div role=\"tabpanel\" class=\"tab-pane\" id=\"setting\">\n                    <div class=\"form-group\">\n                        <label>Search Condition:</label>\n                        <input type=\"text\" class=\"form-control\" placeholder=\"Search Condition (default 1=1)\" [(ngModel)]=\"whereCondition\">\n                        <label>Coordinate System ID (SRID):</label>\n                        <input type=\"text\" class=\"form-control\" placeholder=\"Coordinate System ID (default 4326 - WGS84)\" [(ngModel)]=\"srid\">\n                        <label>Return Distinct Values:</label>\n                        <input type=\"text\" class=\"form-control\" placeholder=\"Return Distinct Values (default False)\" [(ngModel)]=\"returnDistinctValues\">                        \n                    </div>                    \n                </div>\n            </div>         \n\n            <!--Modal Tab Footer-->\n            <div class=\"modal-footer\">\n                <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>\n            </div>\n        </div>\n    </div>\n</div>\n\n<!--Symbology Tab-->\n<div id=\"symbology\" class=\"modal fade\" role=\"dialog\">\n    <div class=\"modal-dialog\">\n        <div class=\"modal-content\">\n            <div class=\"modal-header\">\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n                <h4 class=\"modal-title\">Define Symbology</h4>\n            </div>\n            <div class=\"modal-body\">\n              \n            </div>\n            <div class=\"modal-footer\">\n                <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>\n            </div>\n        </div>\n    </div>\n</div>\n\n\n"
 
 /***/ }),
 
